@@ -1,7 +1,7 @@
 {
-  "name": "cz-conventional-changelog",
-  "version": "0.0.0-semantically-released.0",
-  "description": "Commitizen adapter following the conventional-changelog format.",
+  "name": "cz-derp-conventional-changelog",
+  "version": "0.0.1",
+  "description": "Modified Commitizen adapter following the conventional-changelog format.",
   "main": "index.js",
   "scripts": {
     "commit": "git-cz",
@@ -12,18 +12,19 @@
   "homepage": "https://github.com/commitizen/cz-conventional-changelog",
   "repository": {
     "type": "git",
-    "url": "https://github.com/commitizen/cz-conventional-changelog.git"
+    "url": "https://github.com/goldsziggy/cz-conventional-changelog.git"
   },
   "engineStrict": true,
   "engines": {
     "node": ">= 10"
   },
-  "author": "Jim Cummins <jimthedev@gmail.com>",
+  "author": "Fork: Matthew Zygowicz, Original: Jim Cummins <jimthedev@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "chalk": "^2.4.1",
     "commitizen": "^4.0.3",
     "conventional-commit-types": "^2.0.0",
+    "got": "^9.6.0",
     "lodash.map": "^4.5.1",
     "longest": "^2.0.1",
     "right-pad": "^1.0.1",

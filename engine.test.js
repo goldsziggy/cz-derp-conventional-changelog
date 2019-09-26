@@ -258,15 +258,15 @@ describe('defaults', function() {
     ).to.equal(type);
   });
   it('defaultScope default', function() {
-    expect(questionDefault('scope')).to.be.undefined;
+    expect(questionDefault('scope')({})).to.be.undefined;
   });
   it('defaultScope options', () =>
     expect(
-      questionDefault('scope', customOptions({ defaultScope: scope }))
+      questionDefault('scope', customOptions({ defaultScope: scope }))({})
     ).to.equal(scope));
 
   it('defaultSubject default', () =>
-    expect(questionDefault('subject')).to.be.undefined);
+    expect(questionDefault('subject')({})).to.be.undefined);
   it('defaultSubject options', function() {
     expect(
       questionDefault(
@@ -274,7 +274,7 @@ describe('defaults', function() {
         customOptions({
           defaultSubject: subject
         })
-      )
+      )({})
     ).to.equal(subject);
   });
   it('defaultBody default', function() {

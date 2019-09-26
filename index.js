@@ -4,9 +4,17 @@ var engine = require('./engine');
 var conventionalCommitTypes = require('conventional-commit-types');
 var configLoader = require('commitizen').configLoader;
 
+var types = Object.assign({}, conventionalCommitTypes.types, {
+  derp: { description: 'A random experiment commit', title: 'A Derpy Commit' },
+  derpNsfw: {
+    description: 'A random experiment (potentailly NSFW) commit message',
+    title: 'A Derpy Commit'
+  }
+});
+
 var config = configLoader.load();
 var options = {
-  types: conventionalCommitTypes.types,
+  types,
   defaultType: process.env.CZ_TYPE || config.defaultType,
   defaultScope: process.env.CZ_SCOPE || config.defaultScope,
   defaultSubject: process.env.CZ_SUBJECT || config.defaultSubject,

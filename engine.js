@@ -3,8 +3,34 @@
 var wrap = require('word-wrap');
 var map = require('lodash.map');
 var longest = require('longest');
+var got = require('got');
 var rightPad = require('right-pad');
 var chalk = require('chalk');
+var sfwUrl = 'http://fortunecookieapi.herokuapp.com/v1/cookie';
+var nsfwUrl = 'http://whatthecommit.com/index.txt';
+
+const getSafeRandomMessage = () =>
+  got(sfwUrl)
+    .then(res => {
+      return JSON.parse(res.body)[0].fortune.message.trim();
+    })
+    .catch(err => {
+      if (err) {
+        console.log(err);
+        return 'Damn no random message.';
+      }
+    });
+
+const getUnsafeRandomMessage = () =>
+  got(nsfwUrl)
+    .then(res => {
+      return res.body.trim();
+    })
+    .catch(err => {
+      if (err) {
+        return 'Damn no random message.';
+      }
+    });
 
 var filter = function(array) {
   return array.filter(function(x) {
@@ -81,7 +107,11 @@ module.exports = function(options) {
           name: 'scope',
           message:
             'What is the scope of this change (e.g. component or file name): (press enter to skip)',
-          default: options.defaultScope,
+          default: ({ type }) => {
+            return type === 'derp' || type === 'derpNsfw'
+              ? 'random'
+              : options.defaultScope;
+          },
           filter: function(value) {
             return value.trim().toLowerCase();
           }
@@ -96,7 +126,19 @@ module.exports = function(options) {
               ' chars):\n'
             );
           },
-          default: options.defaultSubject,
+          default: async answers => {
+            if (answers.type === 'derp' || answers.type === 'derpNsfw') {
+              let randomMessage;
+              do {
+                randomMessage =
+                  answers.type === 'derp'
+                    ? await getSafeRandomMessage()
+                    : await getUnsafeRandomMessage();
+              } while (randomMessage > maxSummaryLength(options, answers));
+              return randomMessage;
+            }
+            return options.defaultSubject;
+          },
           validate: function(subject, answers) {
             var filteredSubject = filterSubject(subject);
             return filteredSubject.length == 0
