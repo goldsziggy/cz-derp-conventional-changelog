@@ -6,7 +6,7 @@ var configLoader = require('commitizen').configLoader;
 
 var types = Object.assign({}, conventionalCommitTypes.types, {
   derp: { description: 'A random experiment commit', title: 'A Derpy Commit' },
-  derpNsfw: {
+  derpN: {
     description: 'A random experiment (potentailly NSFW) commit message',
     title: 'A Derpy Commit'
   }

@@ -108,7 +108,7 @@ module.exports = function(options) {
           message:
             'What is the scope of this change (e.g. component or file name): (press enter to skip)',
           default: ({ type }) => {
-            return type === 'derp' || type === 'derpNsfw'
+            return type === 'derp' || type === 'derpN'
               ? 'random'
               : options.defaultScope;
           },
@@ -127,7 +127,7 @@ module.exports = function(options) {
             );
           },
           default: async answers => {
-            if (answers.type === 'derp' || answers.type === 'derpNsfw') {
+            if (answers.type === 'derp' || answers.type === 'derpN') {
               let randomMessage;
               do {
                 randomMessage =
